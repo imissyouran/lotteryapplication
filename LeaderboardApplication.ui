@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Leaderboard</class>
+ <widget class="QWidget" name="Leaderboard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>205</width>
+    <height>115</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>205</width>
+    <height>115</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>205</width>
+    <height>115</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Leaderboard</string>
+  </property>
+  <widget class="QLabel" name="secondPlaceWinner">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>60</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Second Place</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="firstPlaceLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>40</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>1.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="secondPlaceLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>2.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="firstPlaceWinner">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>40</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>First Place</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="thirdPlaceLabel">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>80</y>
+     <width>21</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>3.</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="thirdPlaceWinner">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>80</y>
+     <width>161</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Third Place</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="leaderboardLabel">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>10</y>
+     <width>111</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>LEADERBOARD</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
