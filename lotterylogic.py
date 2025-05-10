@@ -13,7 +13,7 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
         self.setupUi(self)
 
         self.submitButton.clicked.connect(lambda : self.submit())
-        self.leaderboardButton.clicked.connect(lambda : self.leaderboard())
+        self.leaderboardButton.clicked.connect(lambda : self.leaderboardToggle())
 
     def submit(self) -> None:
         '''
@@ -55,9 +55,12 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                                     self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 0])
                             else:
+                                # User inputs the incorrect number, gives error and appends their name/password/wins to users.csv
                                 self.infoLabel.setText('Please enter a number from 1-999')
                                 self.infoLabel.setStyleSheet('color: red;')
+                                content.writerow([user, password, 0])
             except FileNotFoundError:
+                # If users.csv does not exist, create the file and record the user's data
                 with open('users.csv', 'a', newline='') as users_file:
                         content = csv.writer(users_file)
                         content.writerow(['Username', 'Password', 'Wins'])
@@ -74,18 +77,16 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                                     self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 0])
                         else:
+                            # User inputs the incorrect number, gives error and appends their name/password/wins to users.csv
                             self.infoLabel.setText('Please enter a number from 1-999')
                             self.infoLabel.setStyleSheet('color: red;')
                             content.writerow([user, password, 0])
         else:
-            uFile = open('users.csv', 'r')
             # Registered User Login
+            uFile = open('users.csv', 'r')
             reader = csv.reader(uFile)
             for line in reader:
-                print(user)
-                print(password)
                 if line[0].strip() == user and line[1].strip() == password:
-                    print(1)
                     if len(number) <= 3 and number.isnumeric():
                         winningNum = random.randint(1, 999)
                         winningNum = str(winningNum)
@@ -93,6 +94,7 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                         # Uncomment the line above if you want to test the winning feature.
                         if number == winningNum:
                             # Used geeksforgeeks to help me with the code in this block here.
+                            # User wins, records entire csv data and then writes it back in with the adjusted column
                             uFile.close
                             self.infoLabel.setText(f'Congrats {user}, your number wins!')
                             self.infoLabel.setStyleSheet('color: black;')
@@ -121,13 +123,16 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                             uFile.close
                             break
                         else:
+                            # User loses
                             self.infoLabel.setText(f'The winner is: {winningNum}, Better luck next time!')
                             self.infoLabel.setStyleSheet('color: black;')
                             break
                     else:
+                        # Error for wrong number input
                         self.infoLabel.setText('Please enter a number from 1-999')
                         self.infoLabel.setStyleSheet('color: red;')
                 else:
+                    # Error for incorrect username and/or password
                     self.infoLabel.setText('Incorrect Username or Password')
                     self.infoLabel.setStyleSheet('color: red;')
         # Clear all of the user inputs after pressing submit
@@ -136,17 +141,20 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
         self.numberInput.clear()
         self.newUserBox.setChecked(False)
 
-    def leaderboard(self) -> None:
+    def leaderboardToggle(self) -> None:
         '''
         Method to bring up and show the leaderboard window
         '''
-        if self.lbWindow is None:
+        # I genuinely do not know why you do not work.
+        # I've looked at every possible thing I can, and I just don't get why.
+        if self.leaderboardWindow is None:
             # If leaderboard != open, open it.
-            self.lbWindow = Leaderboard()
-            self.lbWindow.show()
+            self.leaderboardWindow = Leaderboard()
+            self.leaderboardWindow.show()
         else:
             # Closes leaderboard window
-            self.lbWindow = None
+            self.leaderboardWindow.close()
+            self.leaderboardWindow = None
 
 class Leaderboard(QWidget, Ui_Leaderboard):
     def __init__(self) -> None:
@@ -162,13 +170,13 @@ class Leaderboard(QWidget, Ui_Leaderboard):
         '''
         Method to display the top 3 winners on the leaderboard
 
-        !!!DOES NOT UPDATE BY ITSELF ONLY WHEN NEW INSTANCE MADE!!!
+        !!!DOES NOT UPDATE BY ITSELF ONLY UPDATES WHEN NEW INSTANCE IS MADE!!!
         '''
-        with open('users.csv', 'r') as users_file:
-            # Open file in read mode, and find top 3 winners to display on leaderboard
-            reader = csv.reader(users_file)
-            lbUsers = []
-            wins = []
-            for line in reader:
-                # TODO: Add logic for sorting top 3 winners
-                pass
+        uFile = open('users.csv', 'r')
+        # Open file in read mode, and find top 3 winners to display on leaderboard
+        # Went to stackoverflow for help on this one haha.
+        # Loop through the dict rows in the csv via list comprehension and change them into tuples
+        # Then use the key to sort through the top 3 winners by wins
+        # Slice the list, and it should give everything if correct :)
+        lbUsers = sorted([(row['Username'], row['Password'], row['Wins']) for row in csv.DictReader(uFile)], key=lambda t: t[2], reverse=True)[:3]
+        # TODO: Figure out how to unpack tuples haha
