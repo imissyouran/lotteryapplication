@@ -94,6 +94,7 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                         # Uncomment the line above if you want to test the winning feature.
                         if number == winningNum:
                             # Used geeksforgeeks to help me with the code in this block here.
+                            # https://www.geeksforgeeks.org/update-column-value-of-csv-in-python/ 
                             # User wins, records entire csv data and then writes it back in with the adjusted column
                             uFile.close
                             self.infoLabel.setText(f'Congrats {user}, your number wins!')
@@ -147,6 +148,8 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
         '''
         # I genuinely do not know why you do not work.
         # I've looked at every possible thing I can, and I just don't get why.
+        # Link below helped me with this
+        # https://www.pythonguis.com/tutorials/pyqt6-creating-multiple-windows/
         if self.leaderboardWindow is None:
             # If leaderboard != open, open it.
             self.leaderboardWindow = Leaderboard()
@@ -175,6 +178,7 @@ class Leaderboard(QWidget, Ui_Leaderboard):
         uFile = open('users.csv', 'r')
         # Open file in read mode, and find top 3 winners to display on leaderboard
         # Went to stackoverflow for help on this one haha.
+        # https://stackoverflow.com/questions/55111303/how-can-i-find-the-top-three-highest-rows-based-on-a-column-in-a-csv
         # Loop through the dict rows in the csv via list comprehension and change them into tuples
         # Then use the key to sort through the top 3 winners by wins
         # Slice the list, and it should give everything if correct :)
