@@ -47,10 +47,12 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                                 if number == winningNum:
                                     # User win text, appends their name/password/wins to users.csv
                                     self.infoLabel.setText(f'Congrats {user}, your number wins!')
+                                    self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 1])
                                 else:
                                     # User lose text, appends their name/password/wins to users.csv
                                     self.infoLabel.setText(f'The winner is: {winningNum}, Better luck next time!')
+                                    self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 0])
                             else:
                                 self.infoLabel.setText('Please enter a number from 1-999')
@@ -64,10 +66,12 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                             if number == winningNum:
                                     # User win text, appends their name/password/wins to users.csv
                                     self.infoLabel.setText(f'Congrats {user}, your number wins!')
+                                    self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 1])
                             else:
                                     # User lose text, appends their name/password/wins to users.csv
                                     self.infoLabel.setText(f'The winner is: {winningNum}, Better luck next time!')
+                                    self.infoLabel.setStyleSheet('color: black;')
                                     content.writerow([user, password, 0])
                         else:
                             self.infoLabel.setText('Please enter a number from 1-999')
@@ -78,10 +82,15 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
             # Registered User Login
             reader = csv.reader(uFile)
             for line in reader:
+                print(user)
+                print(password)
                 if line[0].strip() == user and line[1].strip() == password:
+                    print(1)
                     if len(number) <= 3 and number.isnumeric():
                         winningNum = random.randint(1, 999)
                         winningNum = str(winningNum)
+                        # winningNum = '1'
+                        # Uncomment the line above if you want to test the winning feature.
                         if number == winningNum:
                             # Used geeksforgeeks to help me with the code in this block here.
                             uFile.close
@@ -110,9 +119,11 @@ class LotteryLogic(QMainWindow, Ui_LotteryApplication):
                             data.writerow(dict((heads, heads) for heads in headers))
                             data.writerows(up_dt)
                             uFile.close
+                            break
                         else:
                             self.infoLabel.setText(f'The winner is: {winningNum}, Better luck next time!')
                             self.infoLabel.setStyleSheet('color: black;')
+                            break
                     else:
                         self.infoLabel.setText('Please enter a number from 1-999')
                         self.infoLabel.setStyleSheet('color: red;')

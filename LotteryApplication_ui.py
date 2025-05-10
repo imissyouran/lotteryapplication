@@ -36,7 +36,7 @@ class Ui_LotteryApplication(object):
         self.numberInput.setGeometry(QtCore.QRect(80, 70, 51, 20))
         self.numberInput.setObjectName("numberInput")
         self.newUserBox = QtWidgets.QCheckBox(parent=self.centralwidget)
-        self.newUserBox.setGeometry(QtCore.QRect(140, 70, 71, 21))
+        self.newUserBox.setGeometry(QtCore.QRect(140, 70, 81, 21))
         self.newUserBox.setObjectName("newUserBox")
         self.submitButton = QtWidgets.QPushButton(parent=self.centralwidget)
         self.submitButton.setGeometry(QtCore.QRect(60, 100, 121, 23))
